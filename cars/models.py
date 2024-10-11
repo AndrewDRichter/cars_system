@@ -20,3 +20,8 @@ class Car(models.Model):
 
     def __str__(self):
         return self.model
+    
+    def get_cars(filter: str = ""):
+        if filter:
+            return Car.objects.filter(model__icontains=filter)
+        return Car.objects.all()
