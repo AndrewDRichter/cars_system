@@ -11,16 +11,29 @@
         <h3>Aqui você encontra os melhores veículos à venda na região!</h3>
         <form action="#" method="POST">
             {% csrf_token %}
-            <input type="text" name="search_input" id="search_input" placeholder="Encontrar veículos...">
+            <select name="brand_select" id="brand_select">
+                <option value="">...</option>
+                {% for brand in brands %}
+                    <option value="{{ brand.name }}" {% if brand.name == sel_brand %}selected{% endif %}>{{ brand.name }}</option>
+                {% endfor %}
+            </select>
+            <input type="text" name="search_input" id="search_input" value="{{ serach_value }}" placeholder="Encontrar veículos...">
             <button type="submit">Buscar</button>
         </form>
     </div>
 
     <br />
-    {% if search %}
-        {% for obj in search %}
-            {{ obj }}
-        {% endfor %}
-    {% endif %}
+    <div class="cars-listing">
+        <ul>
+            {% if search %}
+                {% for obj in search %}
+                    <li>{{ obj.brand }} {{ obj.model }} {{ obj.model_year }}
+                        <br />
+                        {% if obj.photo.url != None %}<img src="{{ obj.photo.url }}" width="500" height="300">{% endif %}
+                    </li>
+                {% endfor %}
+            {% endif %}
+        </ul>
+    </div>
 </body>
 </html>
