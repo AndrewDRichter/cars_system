@@ -3,13 +3,15 @@ from .models import Car, Brand
 
 def cars_view(request):
     brands = Brand.objects.all()
-    if request.method == 'POST':
-        search = request.POST.get("search_input", None)
-        brand = request.POST.get("brand_select", None)
-        obj = Car.get_cars(search, brand)
+    cars = Car.objects.all()
+    if request.method == 'GET':
+        search = request.GET.get("search", None)
+        brand = request.GET.get("brand_select", None)
+        print(search, brand)
+        cars = Car.get_cars(search, brand)
         context = {
             "brands" : brands,
-            "search" : obj,
+            "cars" : cars,
             "search_value" : search,
             "sel_brand" : brand,
         }
@@ -17,3 +19,6 @@ def cars_view(request):
     
     return render(request, "cars.html", {"brands": brands})
         
+def new_car_view(request):
+    context = {}
+    return render(request, "new_car.html", context)
