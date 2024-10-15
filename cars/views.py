@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .models import Car, Brand
+from .forms import CarForm
 
 def cars_view(request):
     brands = Brand.objects.all()
@@ -20,5 +21,8 @@ def cars_view(request):
     return render(request, "cars.html", {"brands": brands})
         
 def new_car_view(request):
-    context = {}
+    new_car_form = CarForm()
+    context = {
+        'car_form' : new_car_form,
+    }
     return render(request, "new_car.html", context)
