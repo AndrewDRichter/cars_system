@@ -20,11 +20,3 @@ class Car(models.Model):
 
     def __str__(self):
         return self.model
-    
-    def get_cars(filter, brand):
-        q = Car.objects.all()
-        if filter:
-            q = Car.objects.filter(model__icontains=filter)
-        if brand:
-            q = q.filter(brand__name=brand)
-        return q
