@@ -8,7 +8,6 @@ class CarModelForm(forms.ModelForm):
         
     def clean_value(self):
         value = self.cleaned_data.get('value')
-        print(value)
         if value < 20000:
             self.add_error('value', 'Valor mínimo deve ser de 20.000')
         return value
